@@ -1,0 +1,131 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+{% load FilmsTags %}
+
+
+<div class="slider movie-items">
+	<div class="container">
+		<div class="row">
+			<div class="social-link">
+				<p>Follow us: </p>
+				<a href="#"><i class="ion-social-facebook"></i></a>
+				<a href="#"><i class="ion-social-twitter"></i></a>
+				<a href="#"><i class="ion-social-googleplus"></i></a>
+				<a href="#"><i class="ion-social-youtube"></i></a>
+			</div>
+	    	<div  class="slick-multiItemSlider">
+				{% for film in films %}:
+	    		<div class="movie-item">
+					<a href="movie/{{film.slug}}">
+	    			<div class="mv-img">
+	    				<img src="{{film.photo.url}}" alt="" width="285" height="437">
+	    			</div>
+					</a>
+	    			<div class="title-in">
+	    				<div class="cate">
+							{% for gen in film.genre.all%}
+	    					<span class="blue"><a href="{{gen.get_absolute_url}}">{{gen}}</a></span>
+							{% endfor %}
+	    				</div>
+	    				<h6><a href="movie/{{film.slug}}">{{film.title}}</a></h6>
+	    				<p><i class="ion-android-star"></i><span>{{film.rating}}</span> /10</p>
+	    			</div>
+	    		</div>
+				{% endfor %}
+	    	</div>
+	    </div>
+	</div>
+</div>
+<div class="movie-items">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-8">
+				<div class="title-hd">
+					<h2>Фильмы</h2>
+					<a href="Films_list" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+				</div>
+				<div class="tabs">
+					<ul class="tab-links">
+						<li class="active"><a href="#tab1">Недавно добавленные</a></li>
+					</ul>
+				    <div class="tab-content">
+				        <div id="tab1" class="tab active">
+				            <div class="row">
+				            	<div class="slick-multiItem">
+									{% newest 8 as newes %}        <!-- УВИДЬ ЭТО ТУТ ЧИСЛО НЕ ЗАБУДЬ -->
+									{% for new in newes %}
+				            		<div class="slide-it">
+				            			<div class="movie-item" >
+											<a  href="{{new.get_absolute_url}}">
+					            			<div class="mv-img">
+												<img src="{{new.photo.url}}" alt="" width="185" height="284">
+					            			</div>
+											</a>
+					            			<div class="title-in">
+					            				<h6><a href="#">{{new.title}}</a></h6>
+					            				<p><i class="ion-android-star"></i><span>{{new.rating}}</span> /10</p>
+					            			</div>
+					            		</div>
+				            		</div>
+									{% endfor %}
+
+				            	</div>
+				            </div>
+				        </div>
+					</div>
+				</div>
+
+				<div class="tabs">
+					<ul class="tab-links-2">
+						<li class="active"><a href="#tab22">наиболее просматриваемые</a></li>
+					</ul>
+				    <div class="tab-content">
+				        <div id="tab22" class="tab active">
+				           <div class="row">
+				            	<div class="slick-multiItem">
+									{% for popular in populars %}
+				            		<div class="slide-it">
+				            			<div class="movie-item" >
+											<a  href="{{popular.get_absolute_url}}">
+					            			<div class="mv-img">
+												<img src="{{popular.photo.url}}" alt="" width="185" height="284">
+					            			</div>
+											</a>
+					            			<div class="title-in">
+					            				<h6><a href="#">{{popular.title}}</a></h6>
+					            				<p><i class="ion-android-star"></i><span>{{popular.rating}}</span> /10</p>
+					            			</div>
+					            		</div>
+				            		</div>
+									{% endfor %}
+				            	</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="sidebar">
+					<div class="ads">
+						<img src="{%static 'images/uploads/ads1.png'%}" alt="" width="336" height="296">
+					</div>
+					<div class="celebrities">
+						<h4 class="sb-title">Случайные</h4>
+						{% random as random %}
+						{% for i in random %}
+						<div class="celeb-item">
+							<a href="{{i.get_absolute_url}}"><img src="{{i.photo.url}}" alt="" width="70" height="70"></a>
+							<div class="celeb-author">
+								<h6><a href="{{i.get_absolute_url}}">{{i.title}}</a></h6>
+								<span>{{i.release_date|date:"Y"}}</span>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+{% load FilmsTags %}
+
+<div class="hero common-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>{{title}}</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- celebrity list section-->
+<div class="page-single">
+	<div class="container">
+		<div class="row ipad-width2">
+			<div class="col-md-9 col-sm-12 col-xs-12">
+				<div class="topbar-filter">
+					<p class="pad-change">Found <span>{{page_obj.paginator.count}}</span> in total</p>
+
+					<a href="#" class="list"><i class="ion-ios-list-outline active"></i></a>
+				</div>
+				<div class="row">
+					{% for i in actorslist %}
+					<div class="col-md-12">
+						<div class="ceb-item-style-2">
+							<img src="{{i.photo.url}}" height="100" width="100" alt="">
+							<div class="ceb-infor">
+								<h2><a href="{{i.get_absolute_url}}">{{i.name}}</a></h2>
+								<span>actor,{{i.country}}</span>
+								<p>{{i.bio|truncatewords:20}}</p>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<div class="topbar-filter">
+					<label>Станица {{page_obj.number}} of {{page_obj.paginator.num_pages}}:</label>
+					{% if request.path_info == "/actor_filter" %}
+					<div class="pagination2">
+						{% for p in page_obj.paginator.page_range %}
+						{% if page_obj.number <= p|add:"2" and page_obj.number >= p|add:"-2" %}
+							{% if page_obj.number == p %}
+								<a class="active" href="#">{{p}}</a>
+							{% else %}
+								<a href="?{{page}}page={{p}}">{{p}}</a>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+						{% if page_obj.has_next %}
+						<a href="?{{page}}page={{page_obj.next_page_number}}"><i class="ion-arrow-right-b"></i></a>
+						{% endif %}
+					</div>
+					{% else %}
+					<div class="pagination2">
+						{% for i in page_obj.paginator.page_range %}
+						{% if page_obj.number <= i|add:2 and page_obj.number >= i|add:-2 %}
+							{% if page_obj.number == i %}
+								<a class="active" href="?page={{i}}">{{i}}</a>
+							{% else %}
+								<a href="?page={{i}}">{{i}}</a>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+						{% if page_obj.has_next %}
+							<a href="?page={{page_obj.next_page_number}}"><i class="ion-arrow-right-b"></i></a>
+						{% endif %}
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-md-3 col-xs-12 col-sm-12">
+				<div class="sidebar">
+						<div class="searh-form">
+						<h4 class="sb-title">Search celebrity</h4>
+						<form class="form-style-1 celebrity-form" action="{% url 'actor_filter'%}" method=get>
+							<div class="row">
+								<div class="col-md-12 form-it">
+									<label>Страна</label>
+									<div class="group-ip">
+									<select
+											name="countrys" multiple="" class="ui fluid dropdown">
+											<option value="">---</option>
+											{% country as country %}
+											{% for i in country %}
+											<option value="{{i.slug}}">{{i}}</option>
+											{% endfor %}
+									</select>
+									</div>
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Дата рождения</label>
+									<div class="row">
+										<div class="col-md-6">
+											<input type="text" name="date1" value = "1900" onkeyup="this.value = this.value.replace(/[^\d]/g,'');" placeholder="1900">
+										</div>
+										<div class="col-md-6">
+											<input type="text" name="date2" value = "2021" onkeyup="this.value = this.value.replace(/[^\d]/g,'');" placeholder="2021">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 ">
+									<input class="submit" type="submit" value="submit">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="ads">
+						<img src="images/uploads/ads1.png" alt="">
+					</div>
+					<div class="celebrities">
+						<h4 class="sb-title">featured celebrity</h4>
+						{% random as random %}
+						{% for i in random %}
+						<div class="celeb-item">
+							<a href="{{i.get_absolute_url}}"><img src="{{i.photo.url}}" height="90" width="80" alt=""></a>
+							<div class="celeb-author">
+								<h6><a href="{{i.get_absolut_url}}">{{i.title|truncatewords:3}}</a></h6>
+								<span>{{i.release_date|date:"Y"}}</span>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+
+<div class="hero user-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>Регистрация</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<div class="row ipad-width">
+				<div class="form-style-1 user-pro" action="#">
+					<form action="#" class="user" method="post">
+						{% csrf_token%}
+						<div style="color:white">{{ error }}</div>
+						{{form.as_p}}
+						<!--<div class="row">
+							<div class="col-md-6 form-it">
+								<label for="{form.username.id_for_label}}">Имя</label>
+								{{form.username}}
+							</div>
+							<div class="col-md-6 form-it" style="color:white">
+								{{form.username.errors}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label for="{{form.password.id_for_label}}">Повторите пароль</label>
+								{{form.password}}
+							</div>
+							<div class="col-md-6 form-it" style="color:white">
+								{{form.password.errors}}
+							</div>
+						</div>-->
+						<div class="row">
+							<div class="col-md-2">
+								<input class="submit" type="submit" value="change">
+							</div>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

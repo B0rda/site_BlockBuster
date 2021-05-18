@@ -1,0 +1,159 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+{% load FilmsTags %}
+<div class="hero common-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>{{title}}</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="topbar-filter">
+					<p>Found <span>{{page_obj.paginator.count}}</span> in total</p>
+					<a  href="#" class="grid"><i class="ion-grid active"></i></a>
+				</div>
+				<div class="flex-wrap-movielist">
+					{% for i in films %}
+						<div class="movie-item-style-2 movie-item-style-1">
+							<a  href="{{i.get_absolute_url}}">
+							<img src="{{i.photo.url}}" alt="">
+	            				 </a>
+							<div class="mv-item-infor">
+								<h6><a href="{{i.get_absolute_url}}">{{i.title}}</a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>{{i.rating}}</span> /10</p>
+							</div>
+						</div>					
+					{% endfor %}
+				</div>		
+				<div class="topbar-filter">
+					<label><span>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}:</span></label>
+					{% if request.path_info == "/filter" %}
+					<div class="pagination2">
+						{% for p in page_obj.paginator.page_range %}
+						{% if page_obj.number <= p|add:"2" and page_obj.number >= p|add:"-2" %}
+							{% if page_obj.number == p %}
+								<a class="active" href="#">{{p}}</a>
+							{% else %}
+								<a href="?{{page}}page={{p}}">{{p}}</a>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+						{% if page_obj.has_next %}
+						<a href="?{{page}}page={{page_obj.next_page_number}}"><i class="ion-arrow-right-b"></i></a>
+						{% endif %}
+					</div>
+					{% else %}
+					<div class="pagination2">
+						{% for p in page_obj.paginator.page_range %}
+						{% if page_obj.number <= p|add:"2" and page_obj.number >= p|add:"-2" %}
+							{% if page_obj.number == p %}
+								<a class="active" href="#">{{p}}</a>
+							{% else %}
+								<a href="?page={{p}}">{{p}}</a>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+						{% if page_obj.has_next %}
+						<a href="?page={{page_obj.next_page_number}}"><i class="ion-arrow-right-b"></i></a>
+						{% endif %}
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="sidebar">
+					<div class="searh-form">
+						<h4 class="sb-title">Фильтр</h4>
+						<form class="form-style-1" action="{% url 'filter'%}" method="get">
+							<div class="row">
+								<div class="col-md-12 form-it">
+									<label>Жанр</label>
+									<div class="group-ip">
+										<select
+											name="genres" multiple="" class="ui fluid dropdown">
+											{% genres as genres %}
+											<option value="">---</option>
+											{% for i in genres %}
+											<option value="{{i.slug}}">{{ i.title }}</option>
+											{% endfor %}
+										</select>
+									</div>	
+								</div>
+								<!--{% for i in genres %}
+								<input type="hidden" name="genres1" value="{{i}}">
+								{% endfor %}-->
+								<div class="col-md-12 form-it">
+									<label>Страна</label>
+									<div class="group-ip">
+										<select
+											name="countrys" multiple="" class="ui fluid dropdown">
+											{% country as country %}
+											<option value="">---</option>
+											{% for i in country %}
+											<option value="{{i.slug}}">{{ i.name }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Возрастной рейтинг</label>
+									<div class="group-ip">
+										<select
+											name="age_rating" multiple="" class="ui fluid dropdown">
+											{% age_rating as age_rating %}
+											<option value="">---</option>
+											{% for i in age_rating %}
+											<option value="{{i.id}}">{{i}}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Год выхода</label>
+									<div class="row">
+										<div class="col-md-6">
+											<input type="text" name="date1" value="1900" onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
+placeholder="1900">
+										</div>
+										<div class="col-md-6">
+											<input type="text" name="date2" value = "2021" onkeyup="this.value = this.value.replace(/[^\d]/g,'');" placeholder="2021">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Оценка от:</label>
+									<div class="row">
+										<div class="col-md-6">
+											<select name="mark">
+												{% for i in 0123456789|make_list%}
+												<option value="{{i}}">{{i}}</option>
+												{% endfor%}
+											  <option value="10">10</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 ">
+									<input class="submit" type="submit" value="submit">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="ads">
+						<img src="{% static 'images/uploads/ads1.png'%}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

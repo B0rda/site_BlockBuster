@@ -1,0 +1,167 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+{% load FilmsTags %}
+
+<div class="hero hero3">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h1> movie listing - list</h1>
+				<ul class="breadcumb">
+					<li class="active"><a href="#">Home</a></li>
+					<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+				</ul> -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- celebrity single section-->
+
+<div class="page-single movie-single cebleb-single">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="mv-ceb">
+					<img src="{{actor_single.photo.url}}" alt="">
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="movie-single-ct">
+					<h1 class="bd-hd">{{actor_single.name}}</h1>
+					<p class="ceb-single"><br></p>
+					<div class="social-link cebsingle-socail">
+						<a href="#"><i class="ion-social-facebook"></i></a>
+						<a href="#"><i class="ion-social-twitter"></i></a>
+						<a href="#"><i class="ion-social-googleplus"></i></a>
+						<a href="#"><i class="ion-social-linkedin"></i></a>
+					</div>
+					<div class="movie-tabs">
+						<div class="tabs">
+							<ul class="tab-links tabs-mv">
+								<li class="active"><a href="#overviewceb">Об актере</a></li>
+								<li><a href="#biography"> Биография</a></li>
+								<li><a href="#filmography">Фильмография</a></li>
+							</ul>
+						    <div class="tab-content">
+						        <div id="overviewceb" class="tab active">
+						            <div class="row">
+						            	<div class="col-md-8 col-sm-12 col-xs-12">
+						            		<div style="color:grey">{{actor_single.bio|truncatewords:70}}</div>
+											<div class="title-hd-sm">
+												<h4>Фильмография</h4>
+											</div>
+											<!-- movie cast -->
+											<div class="mvcast-item">
+												{% for i in films %}
+												{% if forloop.counter0 < 2 %}
+												<div class="cast-it">
+													<div class="cast-left cebleb-film">
+														<img src="{{i.photo.url}}" width="70" height="80" alt="">
+														<div>
+															<a href="{{i.get_absolute_url}}">{{i.title}}</a>
+														</div>
+													</div>
+													<p>{{i.release_date|date:"Y"}}</p>
+												</div>
+												{% else %}
+													{% endif %}
+												{% endfor %}
+												{% for i in direct %}
+												{% if forloop.counter0 < 2 %}
+												<div class="cast-it">
+													<div class="cast-left cebleb-film">
+														<img src="{{i.photo.url}}" width="70" height="80" alt="">
+														<div>
+															<a href="{{i.get_absolute_url}}">{{i.title}}</a>
+														</div>
+													</div>
+													<p>{{i.release_date|date:"Y"}}</p>
+												</div>
+												{% else %}
+													{% endif %}
+												{% endfor %}
+
+											</div>
+						            	</div>
+						            	<div class="col-md-4 col-xs-12 col-sm-12">
+						            		<div class="sb-it">
+						            			<h6>Имя</h6>
+						            			<p><a href="#">{{actor_single.name}}</a></p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>День рождение </h6>
+						            			<p>{{actor_single.date_of_birth}}</p>
+						            		</div>
+						            		<div class="sb-it">
+						            			<h6>Страна</h6>
+						            			<p>{{actor_single.country}}</p>
+						            		</div>
+						            		<div class="ads">
+												<img src="images/uploads/ads1.png" alt="">
+											</div>
+						            	</div>
+						            </div>
+						        </div>
+						        <div id="biography" class="tab">
+						           <div class="row">
+						            	<div class="rv-hd">
+											<div>
+												<h3>Биография</h3>
+						       	 				<h2>{{actor_single.name}}</h2>
+											</div>							            						
+						            	</div>
+									   <div style="color:grey">{{ actor_single.bio }}</div>
+						            </div>
+						        </div>
+					       	 	<div id="filmography" class="tab">
+						        	<div class="row">
+						            	<div class="rv-hd">
+						            		<div>
+						            			<h3>Фильмография</h3>
+					       	 					<h2>{{actor_single.name}}</h2>
+						            		</div>
+										
+						            	</div>
+						            	<div class="topbar-filter">
+											<p>Найдено <span>{{all}}</span></p>
+										</div>
+										<!-- movie cast -->
+										<div class="mvcast-item">											
+											<div class="mvcast-item">
+												{% for i in films %}
+												<div class="cast-it">
+													<div class="cast-left cebleb-film">
+														<img src="{{i.photo.url}}" width="70" height="80" alt="">
+														<div>
+															<a href="{{i.get_absolute_url}}">{{i.title}}</a>
+														</div>
+													</div>
+													<p>Актер/{{i.release_date|date:"Y"}}</p>
+												</div>
+												{% endfor %}
+												{% for i in direct %}
+													<div class="cast-it">
+													<div class="cast-left cebleb-film">
+														<img src="{{i.photo.url}}" width="70" height="80" alt="">
+														<div>
+															<a href="{{i.get_absolute_url}}">{{i.title}}</a>
+														</div>
+													</div>
+													<p>Режиссер/{{i.release_date|date:"Y"}}</p>
+												</div>
+												{% endfor %}
+											</div>
+										</div>
+					       	 	</div>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- celebrity single section-->
+{% endblock %}
