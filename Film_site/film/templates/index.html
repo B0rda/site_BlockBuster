@@ -19,7 +19,7 @@
 	    		<div class="movie-item">
 					<a href="movie/{{film.slug}}">
 	    			<div class="mv-img">
-	    				<img src="{{film.photo.url}}" alt="" width="285" height="437">
+	    				<img src="{{film.photo.url}}" alt="" class = 'glav_poster'>
 	    			</div>
 					</a>
 	    			<div class="title-in">
@@ -43,7 +43,7 @@
 			<div class="col-md-8">
 				<div class="title-hd">
 					<h2>Фильмы</h2>
-					<a href="Films_list" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+					<a href="Films_list" class="viewall">Посмотреть все <i class="ion-ios-arrow-right"></i></a>
 				</div>
 				<div class="tabs">
 					<ul class="tab-links">
@@ -59,7 +59,7 @@
 				            			<div class="movie-item" >
 											<a  href="{{new.get_absolute_url}}">
 					            			<div class="mv-img">
-												<img src="{{new.photo.url}}" alt="" width="185" height="284">
+												<img src="{{new.photo.url}}" alt="" class = 'little_poster'>
 					            			</div>
 											</a>
 					            			<div class="title-in">
@@ -89,7 +89,7 @@
 				            			<div class="movie-item" >
 											<a  href="{{popular.get_absolute_url}}">
 					            			<div class="mv-img">
-												<img src="{{popular.photo.url}}" alt="" width="185" height="284">
+												<img src="{{popular.photo.url}}" alt="" class = 'little_poster'>
 					            			</div>
 											</a>
 					            			<div class="title-in">

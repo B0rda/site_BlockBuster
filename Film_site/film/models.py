@@ -62,7 +62,7 @@ class film(models.Model):
     release_date = models.DateField(auto_now=False, auto_now_add=False)
     age_rating = models.ForeignKey(AgeRating,on_delete=models.PROTECT)
     views = models.IntegerField(default=0)
-    silka = models.FileField(upload_to=photo_film_path)
+    silka = models.FileField(upload_to=photo_film_path,max_length=500)
     time_add = models.DateTimeField(auto_now_add=True)
     trailer = models.CharField(max_length=300,blank=True)
     country = models.ManyToManyField(Country,related_name='country')

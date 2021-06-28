@@ -4,9 +4,10 @@ from django.views.generic import ListView,DetailView,CreateView
 from .models import *
 from .forms import NewUser,LoginUser, FormReview
 from django.contrib.auth import login,logout
-from django.contrib import messages
+from rest_framework import generics
 from django.db.models import F,Q
 from datetime import datetime
+from .serializers import *
 
 def user_login(request):
     if request.method == 'POST':
@@ -51,8 +52,8 @@ class Registration(CreateView):
         form.save()
         return redirect("/")
     def form_invalid(self, form):
-        print(self.request.path_info)
-        return redirect("/")
+        form = NewUser(data = self.request.POST)
+        return render(self.request,'registration.html',{'form':form})
 
 
 class MovieList(ListView):
@@ -216,3 +217,15 @@ class New_Films(ListView):
         context = super(New_Films, self).get_context_data()
         context['title'] = "Новинки"
         return context
+
+class ApiFilmAll(generics.ListAPIView):
+    serializer_class = ListFilmSerializer
+    queryset = film.objects.all()
+
+class ApiFilmDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = DetailFilmSerializer
+    queryset = film.objects.all()
+
+class ApiFilmCreate(generics.CreateAPIView):
+    serializer_class = CreateFilmSerializer
+    queryset = film.objects.all()

@@ -20,40 +20,9 @@
 				<div class="form-style-1 user-pro" action="#">
 					<form action="#" class="user" method="post">
 						{% csrf_token%}
-						<!--{{form.as_p}}-->
+						{{form.as_p}}
 						<div class="row">
-							<div class="col-md-6 form-it">
-								<label for="{form.username.id_for_label}}">Имя</label>
-								{{form.username}}
-							</div>
-							<div class="col-md-6 form-it" style="color:white">
-								{{form.username.errors}}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label for="{form.email.id_for_label}}">Почта</label>
-								{{form.email}}
-							</div>
-							<div class="col-md-6 form-it" style="color:white">
-								{{form.email.errors}}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label for="{form.password1.id_for_label}}">Пароль</label>
-								{{form.password1}}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label for="{{form.password2.id_for_label}}">Повторите пароль</label>
-								{{form.password2}}
-							</div>
-							<div class="col-md-6 form-it" style="color:white">
-								{{form.password2.errors}}
-							</div>
-						</div>
+
 						<div class="row">
 							<div class="col-md-2">
 								<input class="submit" type="submit" value="change">
